@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.javatechie.querydsl.mock;
 
 import org.springframework.stereotype.Service;
 

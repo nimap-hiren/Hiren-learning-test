@@ -1,36 +1,45 @@
-package com.javatechie.querydsl; // Adjust package declaration according to your application's structure
+package com.javatechie.querydsl;
 
+import com.javatechie.querydsl.mock.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
-    private com.example.demo.service.UserService userServiceMock; // Adjust import to match actual package
+    private UserService userServiceMock; // Mocked UserService
 
     @InjectMocks
-    private com.example.demo.service.UserService userService; // Adjust import to match actual package
+    private UserService userService; // Instance of UserService for testing
 
     @Test
     public void testGetUserById() {
-        // Mocking userService.getUserById(Long userId)
+        // Mocking userServiceMock.getUserById(Long userId)
         when(userServiceMock.getUserById(anyLong())).thenReturn("Mocked User");
 
         String result = userService.getUserById(123L);
         assertEquals("Mocked User", result);
+
+        // Verify that userServiceMock.getUserById was called with specific argument
+        verify(userServiceMock).getUserById(123L);
     }
 
     @Test
     public void testSaveUser() {
-        // Mocking userService.saveUser(String username)
+        // Mocking userServiceMock.saveUser(String username)
+        doNothing().when(userServiceMock).saveUser(anyString());
+
         userService.saveUser("testUser");
-        // No assertion, just verifying that the method was called without errors
+
+        // Verify that userServiceMock.saveUser was called with specific argument
+        verify(userServiceMock).saveUser("testUser");
     }
 }
