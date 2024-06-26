@@ -1,11 +1,14 @@
 package com.javatechie.querydsl.linkedlist;
 
+import java.util.Arrays;
+
 public class LinkedList {
 
     private Node head;
 
     public LinkedList() {
         this.head = null;
+
     }
 
 
@@ -68,4 +71,20 @@ public class LinkedList {
         }
         return false;
     }
+
+    public void reverse() {
+        Node previous = null;
+        Node current = head;
+        Node next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        head = previous;
+    }
+
 }
